@@ -1,0 +1,60 @@
+<div class="d-flex justify-content-between align-items-center">
+  <h2>Registro</h2>
+
+  <input type="button" *ngIf="btnDeleteView" class="btn btn-danger btn-lg" value="Borrar" #ButtonDeleteElement (click)="performAction()"/>
+</div>
+
+<hr>
+
+<shared-search-bar (onValuetoSearch)="udateElements($event)"></shared-search-bar>
+
+<hr>
+
+  <table class="table table-hover text-center" *ngIf="clients.length > 0">
+    <thead>
+      <tr>
+        <th>
+          <strong>#</strong>
+        </th>
+        <th>
+          <strong>No. Cuenta </strong>
+        </th>
+        <th>
+          <strong>Nombre </strong>
+        </th>
+        <th>
+          <strong>Estado </strong>
+        </th>
+        <th>
+          <strong>Entrada Hoy </strong>
+        </th>
+      </tr>
+
+
+    </thead>
+    <tbody>
+      <tr *ngFor="let client of clients" (click)="onRowClick($event, client)">
+
+        <td> <input type="checkbox" [(ngModel)]="selectedItems[client.NCuenta]" (change)="updateSelection($event)" (click)="stopP($event)"> </td>
+
+        <td> {{ client.NCuenta }} </td>
+
+        <td> {{ client.nomComplete }} </td>
+
+        <td> <modules-status-view [estatus]="client.estatus"  ></modules-status-view></td>
+
+        <td><button class="btn btn-success" *ngIf="client.estatus != 0" (click)="updateEntrada(client, $event)">
+              Registrar Entrada
+            </button>
+
+            <button type="button" class="btn btn-warning" *ngIf="client.estatus === 0" (click)="changeToRenovacion(client, $event) ">
+              Renovar Membresía
+            </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="alert alert-warning" role="alert" *ngIf="clients.length === 0">
+    Parece que no hay clientes que mostrar
+  </div>

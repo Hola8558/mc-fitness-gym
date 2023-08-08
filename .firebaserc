@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "mc-fitness-gym-db": {
+      "hosting": {
+        "gym-app-02": [
+          "mc-fitness-gym-db"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "mc-fitness-gym-db"
+  }
+}
